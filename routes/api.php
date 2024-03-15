@@ -37,9 +37,8 @@ Route::middleware('auth:sanctum')->group( function () {
     Route::resource('questions', QuestionController::class);
     Route::resource('questionstatus', QuestionStatusController::class);
     Route::resource('terminalstatus', TerminalStatusController::class);
-
+    Route::resource('roles', RoleController::class);
     
 
 });
 
-Route::resource('roles', RoleController::class);
