@@ -40,7 +40,7 @@ class AuthController extends BaseController
         $input = $request->all();
         $input['password'] = bcrypt($input['password']);
         
-        // Attempt to create a new user, handle unique constraint violation exception
+        
         try {
             $user = User::create($input);
             $success['token'] =  $user->createToken('MyAuthApp')->plainTextToken;
@@ -48,10 +48,10 @@ class AuthController extends BaseController
             return $this->sendResponse($success, 'User created successfully.');
         } catch (\Illuminate\Database\QueryException $e) {
             $errorCode = $e->errorInfo[1];
-            if ($errorCode == 1062) { // MySQL error code for duplicate entry
+            if ($errorCode == 1062) { 
                 return $this->sendError('Error validation', ['email' => 'Email already exists.']);
             }
-            // Handle other database errors
+           
             return $this->sendError('Database error', ['error' => $e->getMessage()]);
         }
     }

@@ -10,6 +10,8 @@ use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\QuestionController;
 use App\Http\Controllers\API\QuestionStatusController;
 use App\Http\Controllers\API\TerminalStatusController;
+use App\Http\Controllers\API\TenantSmsGatewayController;
+use App\Http\Controllers\API\SMSController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,6 +40,9 @@ Route::middleware('auth:sanctum')->group( function () {
     Route::resource('questionstatus', QuestionStatusController::class);
     Route::resource('terminalstatus', TerminalStatusController::class);
     Route::resource('roles', RoleController::class);
+    Route::resource('tenantsmsgateways', TenantSmsGatewayController::class);
+
+    Route::post('/send-sms', [SMSController::class, 'sendsms']);
     
 
 });

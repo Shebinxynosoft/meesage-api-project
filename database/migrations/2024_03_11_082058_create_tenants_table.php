@@ -19,6 +19,7 @@ return new class extends Migration
             $table->integer('no_of_terminals')->nullable();
             $table->string('address')->nullable();           
             $table->string('phone_number')->nullable();
+            $table->decimal('wallet', 10, 2)->default(0.00);
             $table->timestamps();
         });
     }

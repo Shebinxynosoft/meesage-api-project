@@ -15,7 +15,8 @@ class Tenant extends Model
         'no_of_terminals',
         'address',
         'email',
-        'phone_number'
+        'phone_number',
+        'wallet',
     ];
 
 

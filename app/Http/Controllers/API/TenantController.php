@@ -29,6 +29,8 @@ class TenantController extends Controller
             'no_of_terminals' => 'required|integer|min:1', 
             'address' => 'required',
             'phone_number' => 'required|numeric', 
+            'wallet' => 'required|numeric',
+
         ]);
         
         if ($validator->fails()) {
@@ -36,7 +38,7 @@ class TenantController extends Controller
         }
 
         $tenant = Tenant::create($input);
-        return $this->success(new TenantResource($tenant), 'Tenant created successfully.');
+        return $this->success(new TenantResource($tenant), 'Tenant created successfully.', 200);
     }
    
     public function show($id)
@@ -45,7 +47,7 @@ class TenantController extends Controller
         if (is_null($tenant)) {
             return $this->error('Tenant not found.', 404);
         }
-        return $this->success(new TenantResource($tenant), 'Tenant fetched successfully.');
+        return $this->success(new TenantResource($tenant), 'Tenant fetched successfully.', 200);
     }
     
    
@@ -60,6 +62,7 @@ class TenantController extends Controller
             'no_of_terminals' => 'required|integer|min:1', 
             'address' => 'required',
             'phone_number' => 'required|numeric', 
+            'wallet' => 'required|numeric',
         ]);
    
         if ($validator->fails()) {
@@ -72,6 +75,7 @@ class TenantController extends Controller
         $tenant->no_of_terminals = $input['no_of_terminals'];
         $tenant->address = $input['address'];
         $tenant->phone_number = $input['phone_number'];
+        $tenant->wallet = $input['wallet'];
         $tenant->save();
    
         return $this->success($tenant, "Tenant updated successfully.", 200);
