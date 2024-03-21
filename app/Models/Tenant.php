@@ -37,4 +37,14 @@ class Tenant extends Model
         ->orderBy('id','desc')
         ->get();
     }
+
+    public function smsGateways()
+    {
+        return $this->hasMany(TenantSmsGateway::class);
+    }
+
+    public function tenantSmsGateway()
+    {
+        return $this->hasOne(TenantSmsGateway::class);
+    }
 }

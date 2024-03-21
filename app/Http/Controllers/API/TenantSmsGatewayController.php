@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\TenantSmsGateway;
+use App\Models\SmsHistory;
 use App\Http\Resources\TenantSmsGateway as TenantSmsGatewayResource;
 use Illuminate\Support\Facades\Validator;
 use App\Traits\ApiResponser;
@@ -24,6 +25,7 @@ class TenantSmsGatewayController extends Controller
             'sender_id' => 'required',
             'phonenumber' => 'required',
             'textmessage' => 'required',
+            'amount' => 'required',
             'msg_type' => 'nullable',
         ]);
         
@@ -58,6 +60,7 @@ class TenantSmsGatewayController extends Controller
             'sender_id' => 'required',
             'phonenumber' => 'required',
             'textmessage' => 'required',
+            'amount' => 'required',
             'msg_type' => 'nullable',
         ]);
    
@@ -75,6 +78,7 @@ class TenantSmsGatewayController extends Controller
         $tenantsmsgateway->sender_id = $input['sender_id'];
         $tenantsmsgateway->phonenumber = $input['phonenumber'];
         $tenantsmsgateway->textmessage = $input['textmessage'];
+        $tenantsmsgateway->amount = $input['amount'];
         $tenantsmsgateway->msg_type = $input['msg_type'];
         $tenantsmsgateway->save();
    

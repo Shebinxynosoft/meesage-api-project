@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\TenantSmsGateway;
+use App\Models\SmsHistory;
 use App\Http\Resources\TenantSmsGateway as TenantSmsGatewayResource;
 use Illuminate\Support\Facades\Validator;
 use App\Traits\ApiResponser;
@@ -29,7 +30,7 @@ class SMSController extends Controller
         if ($validator->fails()) {
             return $this->error('Validation Error', 422, $validator->errors());
         }
-    
+        $id =$request->id;
         $tenant_id = $request->input('tenant_id');
         $api_id = $request->input('api_id');
         $api_password = $request->input('api_password');
@@ -40,15 +41,45 @@ class SMSController extends Controller
     
         
         $userVerified = $this->verifyUser($api_id, $api_password);
-    
         if ($userVerified) {
-          
+            // Assuming `send_ooredoo_sms` is a custom function.
             send_ooredoo_sms($sender_id, $phonenumber, $textmessage, $msg_type);
-            return $this->success("SMS sent successfully.", 200); 
+
+            $tenantSmsGateway = TenantSmsGateway::where('tenant_id', $tenant_id)->first();
+
+            if (!$tenantSmsGateway) {
+                return $this->error('Tenant SMS gateway not found.', 404);
+            }
+    
+            // If condition is true, insert data automatically.
+            // You can replace `YourModelName::create` with the appropriate model and attributes.
+
+            $msg_count = strlen($textmessage) > 160 ? 2 : 1;
+
+            $smsHistory = SmsHistory::create([
+                'tenantsms_id' =>$tenantSmsGateway->id,                
+                'tenant_id' => $tenant_id,
+                'msg_length' => strlen($textmessage),
+                'msg_count' => $msg_count,
+            ]);
+    
+            if ($smsHistory) {
+                return $this->success("SMS sent successfully.", 200); 
+            } else {
+                return $this->error('Failed to save SMS history.', 500);
+            }
         } else {
-           
             return $this->error('Invalid API credentials.', 401);
         }
+        
+        // if ($userVerified) {
+          
+        //     send_ooredoo_sms($sender_id, $phonenumber, $textmessage, $msg_type);
+        //     return $this->success("SMS sent successfully.", 200); 
+        // } else {
+           
+        //     return $this->error('Invalid API credentials.', 401);
+        // }
     }
 
     public function verifyUser($api_id, $api_password) {

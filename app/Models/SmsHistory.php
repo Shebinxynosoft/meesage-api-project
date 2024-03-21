@@ -5,19 +5,21 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class TenantSmsGateway extends Model
+class SmsHistory extends Model
 {
     use HasFactory;
+
     protected $fillable = [
+        'tenantsms_id',
         'tenant_id',
-        'api_id',
-        'api_password',
-        'sender_id',
-        'phonenumber',
-        'textmessage',
-        'amount',
-        'msg_type',
+        'msg_length',
+        'msg_count',
     ];
+
+    public function tenantSmsGateway()
+    {
+        return $this->belongsTo(TenantSmsGateway::class, 'tenantsms_id');
+    }
 
     public function tenant()
     {

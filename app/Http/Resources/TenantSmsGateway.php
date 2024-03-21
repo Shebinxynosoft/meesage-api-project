@@ -24,6 +24,7 @@ class TenantSmsGateway extends JsonResource
             'sender_id' => $this->sender_id,
             'phonenumber' => $this->phonenumber,
             'textmessage' => $this->textmessage,
+            'amount'=>$this->amount,
             'msg_type'=>$this->msg_type,       
             'created_at' => $this->created_at->format('m/d/Y'),
             'updated_at' => $this->updated_at->format('m/d/Y'),

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('sender_id');
             $table->string('phonenumber');
             $table->text('textmessage');
+            $table->decimal('amount', 10, 2);
             $table->integer('msg_type')->default(1);
             $table->timestamps();
         });
