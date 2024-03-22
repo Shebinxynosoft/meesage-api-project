@@ -37,6 +37,7 @@ class SMSController extends Controller
         $sender_id = $request->input('sender_id');
         $phonenumber = $request->input('phonenumber');
         $textmessage = $request->input('textmessage');
+        $amount= $request->input('amount');
         $msg_type = $request->input('msg_type', 1);
     
         
@@ -61,6 +62,7 @@ class SMSController extends Controller
                 'tenant_id' => $tenant_id,
                 'msg_length' => strlen($textmessage),
                 'msg_count' => $msg_count,
+                'msg_price' => $msg_count * $amount,
             ]);
     
             if ($smsHistory) {

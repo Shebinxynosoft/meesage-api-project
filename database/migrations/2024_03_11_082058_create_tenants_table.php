@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug')->unique();
+            $table->string('api_key')->unique();
+            $table->string('api_password')->unique(); 
             $table->string('email')->unique();
             $table->integer('no_of_terminals')->nullable();
             $table->string('address')->nullable();           

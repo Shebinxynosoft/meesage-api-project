@@ -14,6 +14,7 @@ class SmsHistory extends Model
         'tenant_id',
         'msg_length',
         'msg_count',
+        'msg_price',
     ];
 
     public function tenantSmsGateway()
