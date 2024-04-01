@@ -16,7 +16,8 @@ class TerminalStatus extends JsonResource
     {
         return [
             'id' => $this->id,
-            'branch_id' => $this->branch_id,
+           'branch_id' => $this->branch_id,
+            'branch_id' => $this->branch->name,
             'terminal_name' => $this->terminal_name,
             'terminal_code' => $this->terminal_code,
             'status' => $this->status,

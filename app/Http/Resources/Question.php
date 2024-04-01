@@ -17,8 +17,10 @@ class Question extends JsonResource
         //return parent::toArray($request);
         return [
             'id' => $this->id,
-            'branch_id' => $this->branch_id,
-            'tenant_id' => $this->tenant_id,
+            //'branch_id' => $this->branch_id,
+            //'tenant_id' => $this->tenant_id,
+            'branch_id' => $this->branch->name,
+            'tenant_id' => $this->tenant->name,
             'questions'=>$this->questions,
             'answer_type'=>$this->answer_type,
             'is_active' => $this->is_active,

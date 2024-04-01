@@ -16,8 +16,8 @@ class Branch extends JsonResource
     {
         return [
             'id' => $this->id,
-            'tenant_id' => $this->tenant_id,
-            //'tenant_id' => $this->tenant->name,
+            //'tenant_id' => $this->tenant_id,
+            'tenant_id' => $this->tenant->name,
             'name' => $this->name,
             'email' => $this->email,
             'no_of_terminals' => $this->no_of_terminals,

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\TenantSmsGateway;
 use App\Models\SmsHistory;
+use App\Models\Tenant;
 use App\Http\Resources\TenantSmsGateway as TenantSmsGatewayResource;
 use Illuminate\Support\Facades\Validator;
 use App\Traits\ApiResponser;
@@ -56,15 +57,33 @@ class SMSController extends Controller
             // You can replace `YourModelName::create` with the appropriate model and attributes.
 
             $msg_count = strlen($textmessage) > 160 ? 2 : 1;
+            $total_msg_price = $msg_count * $amount;
 
             $smsHistory = SmsHistory::create([
                 'tenantsms_id' =>$tenantSmsGateway->id,                
                 'tenant_id' => $tenant_id,
                 'msg_length' => strlen($textmessage),
                 'msg_count' => $msg_count,
-                'msg_price' => $msg_count * $amount,
+                'msg_price' =>  $total_msg_price,
             ]);
     
+              // Update tenant's wallet
+              $tenant = Tenant::where('id', $tenant_id)->first();
+
+              if (!$tenant) {
+                  return $this->error('Tenant not found.', 404);
+              }
+              
+              if ($tenant->wallet < $total_msg_price) {
+                  return $this->error('Insufficient funds.', 400);
+              }
+              
+              $newWalletBalance = $tenant->wallet - $total_msg_price;
+              
+              $tenant->update(['wallet' => $newWalletBalance]);
+              
+              return $tenant;
+
             if ($smsHistory) {
                 return $this->success("SMS sent successfully.", 200); 
             } else {

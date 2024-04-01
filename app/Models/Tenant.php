@@ -15,12 +15,13 @@ class Tenant extends Model
         'api_key',
         'api_password',
         'no_of_terminals',
-        'address',
+        'address1',
+        'address2',
         'email',
         'phone_number',
         'wallet',
     ];
-
+   
 
     public function branches()
     {

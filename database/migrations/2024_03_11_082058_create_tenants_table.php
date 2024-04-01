@@ -19,7 +19,8 @@ return new class extends Migration
             $table->string('api_password')->unique(); 
             $table->string('email')->unique();
             $table->integer('no_of_terminals')->nullable();
-            $table->string('address')->nullable();           
+            $table->text('address1')->nullable();  
+            $table->text('address2')->nullable();           
             $table->string('phone_number')->nullable();
             $table->decimal('wallet', 10, 2)->default(0.00);
             $table->timestamps();

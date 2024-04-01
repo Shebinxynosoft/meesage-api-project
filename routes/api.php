@@ -12,6 +12,7 @@ use App\Http\Controllers\API\QuestionStatusController;
 use App\Http\Controllers\API\TerminalStatusController;
 use App\Http\Controllers\API\TenantSmsGatewayController;
 use App\Http\Controllers\API\SMSController;
+use App\Http\Controllers\API\SmsHistoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,17 +34,24 @@ Route::post('register', [AuthController::class, 'signup']);
 
 Route::middleware('auth:sanctum')->group( function () {
    
-    Route::resource('tenants', TenantController::class);
-    Route::resource('branches', BranchController::class);
-    Route::resource('users', UserController::class);
-    Route::resource('questions', QuestionController::class);
-    Route::resource('questionstatus', QuestionStatusController::class);
-    Route::resource('terminalstatus', TerminalStatusController::class);
-    Route::resource('roles', RoleController::class);
-    Route::resource('tenantsmsgateways', TenantSmsGatewayController::class);
-
-    Route::post('/send-sms', [SMSController::class, 'sendsms']);
+  
+  
+   
     
 
 });
+Route::resource('questionstatus', QuestionStatusController::class);
+Route::resource('terminalstatus', TerminalStatusController::class);
+Route::resource('questions', QuestionController::class);
+Route::resource('branches', BranchController::class);
+Route::resource('tenants', TenantController::class);
+Route::resource('roles', RoleController::class);
+Route::resource('smshistory', SmsHistoryController::class);
+Route::resource('tenantsmsgateways', TenantSmsGatewayController::class);
+Route::resource('users', UserController::class);
 
+ 
+  
+   
+
+Route::post('/send-sms', [SMSController::class, 'sendsms']);

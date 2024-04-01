@@ -20,4 +20,9 @@ class TerminalStatus extends Model
     protected $casts = [
         'status' => 'boolean',
     ];
+
+    public function branch()
+    {
+        return $this->belongsTo(Branch::class);
+    }
 }
